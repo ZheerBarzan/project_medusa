@@ -6,27 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXContainerItemProxy section */
-		FABCCF1F2D5D2C1F00A77753 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FABCCF062D5D2C1D00A77753 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FABCCF0D2D5D2C1D00A77753;
-			remoteInfo = project_medusa;
-		};
-		FABCCF292D5D2C1F00A77753 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FABCCF062D5D2C1D00A77753 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FABCCF0D2D5D2C1D00A77753;
-			remoteInfo = project_medusa;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		FABCCF0E2D5D2C1D00A77753 /* project_medusa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_medusa.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FABCCF1E2D5D2C1F00A77753 /* project_medusaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = project_medusaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FABCCF282D5D2C1F00A77753 /* project_medusaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = project_medusaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,34 +16,10 @@
 			path = project_medusa;
 			sourceTree = "<group>";
 		};
-		FABCCF212D5D2C1F00A77753 /* project_medusaTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = project_medusaTests;
-			sourceTree = "<group>";
-		};
-		FABCCF2B2D5D2C1F00A77753 /* project_medusaUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = project_medusaUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FABCCF0B2D5D2C1D00A77753 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FABCCF1B2D5D2C1F00A77753 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FABCCF252D5D2C1F00A77753 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,8 +33,6 @@
 			isa = PBXGroup;
 			children = (
 				FABCCF102D5D2C1D00A77753 /* project_medusa */,
-				FABCCF212D5D2C1F00A77753 /* project_medusaTests */,
-				FABCCF2B2D5D2C1F00A77753 /* project_medusaUITests */,
 				FABCCF0F2D5D2C1D00A77753 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,8 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				FABCCF0E2D5D2C1D00A77753 /* project_medusa.app */,
-				FABCCF1E2D5D2C1F00A77753 /* project_medusaTests.xctest */,
-				FABCCF282D5D2C1F00A77753 /* project_medusaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,52 +70,6 @@
 			productReference = FABCCF0E2D5D2C1D00A77753 /* project_medusa.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FABCCF1D2D5D2C1F00A77753 /* project_medusaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FABCCF352D5D2C1F00A77753 /* Build configuration list for PBXNativeTarget "project_medusaTests" */;
-			buildPhases = (
-				FABCCF1A2D5D2C1F00A77753 /* Sources */,
-				FABCCF1B2D5D2C1F00A77753 /* Frameworks */,
-				FABCCF1C2D5D2C1F00A77753 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FABCCF202D5D2C1F00A77753 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				FABCCF212D5D2C1F00A77753 /* project_medusaTests */,
-			);
-			name = project_medusaTests;
-			packageProductDependencies = (
-			);
-			productName = project_medusaTests;
-			productReference = FABCCF1E2D5D2C1F00A77753 /* project_medusaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		FABCCF272D5D2C1F00A77753 /* project_medusaUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FABCCF382D5D2C1F00A77753 /* Build configuration list for PBXNativeTarget "project_medusaUITests" */;
-			buildPhases = (
-				FABCCF242D5D2C1F00A77753 /* Sources */,
-				FABCCF252D5D2C1F00A77753 /* Frameworks */,
-				FABCCF262D5D2C1F00A77753 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FABCCF2A2D5D2C1F00A77753 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				FABCCF2B2D5D2C1F00A77753 /* project_medusaUITests */,
-			);
-			name = project_medusaUITests;
-			packageProductDependencies = (
-			);
-			productName = project_medusaUITests;
-			productReference = FABCCF282D5D2C1F00A77753 /* project_medusaUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,14 +82,6 @@
 				TargetAttributes = {
 					FABCCF0D2D5D2C1D00A77753 = {
 						CreatedOnToolsVersion = 16.2;
-					};
-					FABCCF1D2D5D2C1F00A77753 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = FABCCF0D2D5D2C1D00A77753;
-					};
-					FABCCF272D5D2C1F00A77753 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = FABCCF0D2D5D2C1D00A77753;
 					};
 				};
 			};
@@ -201,28 +100,12 @@
 			projectRoot = "";
 			targets = (
 				FABCCF0D2D5D2C1D00A77753 /* project_medusa */,
-				FABCCF1D2D5D2C1F00A77753 /* project_medusaTests */,
-				FABCCF272D5D2C1F00A77753 /* project_medusaUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FABCCF0C2D5D2C1D00A77753 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FABCCF1C2D5D2C1F00A77753 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FABCCF262D5D2C1F00A77753 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,34 +122,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FABCCF1A2D5D2C1F00A77753 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FABCCF242D5D2C1F00A77753 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FABCCF202D5D2C1F00A77753 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FABCCF0D2D5D2C1D00A77753 /* project_medusa */;
-			targetProxy = FABCCF1F2D5D2C1F00A77753 /* PBXContainerItemProxy */;
-		};
-		FABCCF2A2D5D2C1F00A77753 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FABCCF0D2D5D2C1D00A77753 /* project_medusa */;
-			targetProxy = FABCCF292D5D2C1F00A77753 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FABCCF302D5D2C1F00A77753 /* Debug */ = {
@@ -399,6 +255,7 @@
 				DEVELOPMENT_TEAM = WL2KNG8MVT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "permission to use the camera for 3d capture";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +285,7 @@
 				DEVELOPMENT_TEAM = WL2KNG8MVT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "permission to use the camera for 3d capture";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -443,78 +301,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		FABCCF362D5D2C1F00A77753 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WL2KNG8MVT;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.project-medusaTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/project_medusa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/project_medusa";
-			};
-			name = Debug;
-		};
-		FABCCF372D5D2C1F00A77753 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WL2KNG8MVT;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.project-medusaTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/project_medusa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/project_medusa";
-			};
-			name = Release;
-		};
-		FABCCF392D5D2C1F00A77753 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WL2KNG8MVT;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.project-medusaUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = project_medusa;
-			};
-			name = Debug;
-		};
-		FABCCF3A2D5D2C1F00A77753 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WL2KNG8MVT;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.project-medusaUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = project_medusa;
 			};
 			name = Release;
 		};
@@ -535,24 +321,6 @@
 			buildConfigurations = (
 				FABCCF332D5D2C1F00A77753 /* Debug */,
 				FABCCF342D5D2C1F00A77753 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FABCCF352D5D2C1F00A77753 /* Build configuration list for PBXNativeTarget "project_medusaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FABCCF362D5D2C1F00A77753 /* Debug */,
-				FABCCF372D5D2C1F00A77753 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FABCCF382D5D2C1F00A77753 /* Build configuration list for PBXNativeTarget "project_medusaUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FABCCF392D5D2C1F00A77753 /* Debug */,
-				FABCCF3A2D5D2C1F00A77753 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

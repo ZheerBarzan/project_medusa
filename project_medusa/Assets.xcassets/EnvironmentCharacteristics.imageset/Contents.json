@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "EnvironmentCharacteristics 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "EnvironmentCharacteristics 2.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "EnvironmentCharacteristics 3.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

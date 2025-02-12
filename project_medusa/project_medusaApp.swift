@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct project_medusaApp: App {
+    
+    static let subsystem: String = "com.project-medusa"
+
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(AppDataModel.instance)
         }
     }
 }
