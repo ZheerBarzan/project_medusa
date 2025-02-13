@@ -12,7 +12,7 @@ struct LibraryView: View {
     @State var showCaputres: Bool = true
     var body: some View {
         NavigationView{
-            GalleryView( showCaptureFolders: $showCaputres )
+            GallaryGrid()
                 .navigationTitle("Library")
         }
     }
