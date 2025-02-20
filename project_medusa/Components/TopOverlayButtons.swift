@@ -247,7 +247,7 @@ private struct VisualEffectRoundedCorner: ViewModifier {
     }
 }
 
-private struct ThumbnailView: View {
+ struct ThumbnailView: View {
     let captureFolderURL: URL
     let frameSize: CGSize
     @State private var image: CGImage?
