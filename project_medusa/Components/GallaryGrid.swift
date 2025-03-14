@@ -21,10 +21,14 @@ struct GallaryGrid: View {
                     
                         ForEach(captureFolderURLs, id: \.self){ url in
                             let frameWidth = UIDevice.current.userInterfaceIdiom == .pad ? 100 : 115
-                            NavigationLink(destination: CaptureDetailView(captureFolderURL: url)){
+                            NavigationLink(destination: ModelView(modelFile: url, endCaptureCallback: {[weak appModel] in
+                                appModel?.endCapture()
+                                
+                            }).onAppear(perform: {
+                                UIApplication.shared.isIdleTimerDisabled = false
+                            })){
                                 ThumbnailView(captureFolderURL: url, frameSize: CGSize(width: frameWidth, height: frameWidth + 70))
-                        
-                        }
+                            }
                     }
                 }
             }
@@ -34,7 +38,7 @@ struct GallaryGrid: View {
     func loadCaptures(){
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let captureFolderURLs = try? fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+        _ = try? fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
         
     }
     private var captureFolderURLs: [URL]?{

@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct CaptureDetailView: View {
+    @Environment(AppDataModel.self) var appModel
     let captureFolderURL: URL
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group{
+            
+        }
     }
 }
 
