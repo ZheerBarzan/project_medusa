@@ -19,10 +19,10 @@ struct OnboardingButtonView: View {
     var onboardingStateMachine: OnboardingStateMachine
     @Binding var showOnboardingView: Bool
     @Binding var showShotLocations: Bool
-
+    
     @State private var userHasIndicatedObjectCannotBeFlipped: Bool? = nil
     @State private var userHasIndicatedFlipObjectAnyway: Bool? = nil
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -33,9 +33,9 @@ struct OnboardingButtonView: View {
                     .padding([.top, .trailing])
                     .opacity(isTutorialPlaying ? 0.0 : 1.0)
             }
-
+            
             Spacer()
-
+            
             VStack(spacing: 0) {
                 let currentStateInputs = onboardingStateMachine.currentStateInputs()
                 if currentStateInputs.contains(where: { $0 == .continue(isFlippable: false) || $0 == .continue(isFlippable: true) }) {
@@ -47,7 +47,7 @@ struct OnboardingButtonView: View {
                 }
                 if currentStateInputs.contains(where: { $0 == .flipObjectAnyway }) {
                     CreateButton(buttonLabel: LocalizedString.flipAnyway,
-                                 buttonLabelColor: .blue,
+                                 buttonLabelColor: .black,
                                  action: {
                         userHasIndicatedFlipObjectAnyway = true
                         transition(with: .flipObjectAnyway)
@@ -55,16 +55,16 @@ struct OnboardingButtonView: View {
                 }
                 if currentStateInputs.contains(where: { $0 == .skip(isFlippable: false) || $0 == .skip(isFlippable: true) }) {
                     CreateButton(buttonLabel: LocalizedString.skip,
-                                 buttonLabelColor: .blue,
+                                 buttonLabelColor: .black,
                                  action: {
                         transition(with: .skip(isFlippable: appModel.isObjectFlippable))
                     })
                 }
                 if currentStateInputs.contains(where: { $0 == .finish }) {
-                    let buttonLabel = appModel.captureMode == .area ? LocalizedString.process : LocalizedString.finish
-                    let buttonLabelColor: Color = appModel.captureMode == .area ? .white :
-                        (onboardingStateMachine.currentState == .thirdSegmentComplete ? .white : .blue)
-                    let shouldApplyBackground = appModel.captureMode == .area ? true : (onboardingStateMachine.currentState == .thirdSegmentComplete)
+                    let buttonLabel = appModel.captureMode == .scene ? LocalizedString.process : LocalizedString.finish
+                    let buttonLabelColor: Color = appModel.captureMode == .scene ? .white :
+                    (onboardingStateMachine.currentState == .thirdSegmentComplete ? .white : .black)
+                    let shouldApplyBackground = appModel.captureMode == .scene ? true : (onboardingStateMachine.currentState == .thirdSegmentComplete)
                     let showBusyIndicator = session.state == .finishing && !appModel.isSaveDraftEnabled ? true : false
                     CreateButton(buttonLabel: buttonLabel,
                                  buttonLabelColor: buttonLabelColor,
@@ -74,7 +74,7 @@ struct OnboardingButtonView: View {
                 }
                 if currentStateInputs.contains(where: { $0 == .objectCannotBeFlipped }) {
                     CreateButton(buttonLabel: LocalizedString.cannotFlipYourObject,
-                                 buttonLabelColor: .blue,
+                                 buttonLabelColor: .black,
                                  action: {
                         userHasIndicatedObjectCannotBeFlipped = true
                         transition(with: .objectCannotBeFlipped)
@@ -88,7 +88,7 @@ struct OnboardingButtonView: View {
                 if currentStateInputs.contains(where: { $0 == .saveDraft }) {
                     let showBusyIndicator = session.state == .finishing && appModel.isSaveDraftEnabled ? true : false
                     CreateButton(buttonLabel: LocalizedString.saveDraft,
-                                 buttonLabelColor: .blue,
+                                 buttonLabelColor: .black,
                                  showBusyIndicator: showBusyIndicator,
                                  action: { [weak appModel] in
                         appModel?.saveDraft()
@@ -98,36 +98,36 @@ struct OnboardingButtonView: View {
             .padding(.bottom)
         }
     }
-
+    
     private var isTutorialPlaying: Bool {
         switch onboardingStateMachine.currentState {
-            case .flipObject, .flipObjectASecondTime, .captureFromLowerAngle, .captureFromHigherAngle:
-                return true
-            default:
-                return false
+        case .flipObject, .flipObjectASecondTime, .captureFromLowerAngle, .captureFromHigherAngle:
+            return true
+        default:
+            return false
         }
     }
-
+    
     private func reloadData() {
         switch onboardingStateMachine.currentState {
-            case .firstSegment, .dismiss:
-                showOnboardingView = false
-            case .secondSegment, .thirdSegment, .additionalOrbitOnCurrentSegment:
-                beginNewOrbitOrSection()
-            default:
-                break
+        case .firstSegment, .dismiss:
+            showOnboardingView = false
+        case .secondSegment, .thirdSegment, .additionalOrbitOnCurrentSegment:
+            beginNewOrbitOrSection()
+        default:
+            break
         }
     }
-
+    
     private func beginNewOrbitOrSection() {
         if let userHasIndicatedObjectCannotBeFlipped {
             appModel.hasIndicatedObjectCannotBeFlipped = userHasIndicatedObjectCannotBeFlipped
         }
-
+        
         if let userHasIndicatedFlipObjectAnyway {
             appModel.hasIndicatedFlipObjectAnyway = userHasIndicatedFlipObjectAnyway
         }
-
+        
         // If the app can't flip an object and person doesn't manually override this, use the same segment and add additional orbits to it.
         if !appModel.isObjectFlippable && !appModel.hasIndicatedFlipObjectAnyway {
             session.beginNewScanPass()
@@ -138,7 +138,7 @@ struct OnboardingButtonView: View {
         showOnboardingView = false
         appModel.orbit = appModel.orbit.next()
     }
-
+    
     private func transition(with input: OnboardingUserInput) {
         do {
             try onboardingStateMachine.enter(input)
@@ -153,13 +153,13 @@ private struct CreateButton: View {
     @Environment(AppDataModel.self) var appModel
     let buttonLabel: String
     var buttonLabelColor: Color = Color.white
-    var buttonBackgroundColor: Color = Color.blue
+    var buttonBackgroundColor: Color = Color.black.opacity(0.7)
     var shouldApplyBackground = false
     var showBusyIndicator = false
     let action: () -> Void
-
+    
     @Environment(\.colorScheme) private var colorScheme
-
+    
     var body: some View {
         Button(
             action: {
@@ -200,7 +200,7 @@ private struct CancelButton: View {
     @Environment(AppDataModel.self) var appModel
     let buttonLabel: String
     @Binding var showOnboardingView: Bool
-
+    
     var body: some View {
         Button(
             action: {
@@ -211,14 +211,14 @@ private struct CancelButton: View {
                 Text(buttonLabel)
                     .font(.headline)
                     .bold()
-                    .foregroundColor(.blue)
+                    .foregroundColor(.black.opacity(0.7))
             })
     }
 }
 
 private struct CameraToggleButton: View {
     @Binding var showShotLocations: Bool
-
+    
     var body: some View {
         VStack(spacing: 0) {
             Button(action: {
@@ -227,12 +227,12 @@ private struct CameraToggleButton: View {
             }, label: {
                 Image(systemName: "camera.viewfinder")
                     .font(.title)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.black.opacity(0.7))
             })
             .padding(.all, 5)
             .background(.ultraThinMaterial.opacity(showShotLocations ? 1 : 0))
             .cornerRadius(15)
-
+            
             Text("Show capture positions")
                 .font(.caption2)
                 .foregroundColor(.secondary)

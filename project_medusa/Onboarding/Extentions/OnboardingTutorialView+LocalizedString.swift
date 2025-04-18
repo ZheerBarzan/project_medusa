@@ -67,9 +67,9 @@ extension OnboardingTutorialView {
         )
 
         static let flipObjectDetailText = NSLocalizedString(
-            "Make sure that the areas you captured previously can still be seen. (Review, Object Capture)",
+            "Make sure that the Scene you captured previously can still be seen. (Review, Object Capture)",
             bundle: Bundle.main,
-            value: "Make sure that the areas you captured previously can still be seen. Avoid flipping your object if it changes shape.",
+            value: "Make sure that the Scene you captured previously can still be seen. Avoid flipping your object if it changes shape.",
             comment: "Feedback for when user should flip the object and capture again"
         )
 
@@ -151,9 +151,9 @@ extension OnboardingTutorialView {
         )
 
         static let flipObjectASecondTimeDetailText = NSLocalizedString(
-            "Make sure that areas you captured previously can still be seen. (Review, Object Capture)",
+            "Make sure that Scene you captured previously can still be seen. (Review, Object Capture)",
             bundle: Bundle.main,
-            value: "Make sure that areas you captured previously can still be seen. Avoid flipping your object if it will change shape.",
+            value: "Make sure that Scene you captured previously can still be seen. Avoid flipping your object if it will change shape.",
             comment: "Feedback for when the person hasn't flipped object on the opposite side."
         )
 
@@ -165,9 +165,9 @@ extension OnboardingTutorialView {
         )
 
         static let captureFromHigherAngleDetailText = NSLocalizedString(
-            "Move above your object and make sure that the areas you captured previously can still be seen. (Review, Object Capture)",
+            "Move above your object and make sure that the Scene you captured previously can still be seen. (Review, Object Capture)",
             bundle: Bundle.main,
-            value: "Move above your object and make sure that the areas you captured previously can still be seen.",
+            value: "Move above your object and make sure that the Scene you captured previously can still be seen.",
             comment: "Feedback for when the person should capture the images again from above, given that flipping the object isn't recommended."
         )
 
@@ -203,17 +203,17 @@ extension OnboardingTutorialView {
             "Capture Preview (Review, Object Capture)",
             bundle: Bundle.main,
             value: "Capture Preview",
-            comment: "Feedback for when the person is in Area Mode."
+            comment: "Feedback for when the person is in Scene Mode."
         )
 
         static let captureInAreaModeDetailText = NSLocalizedString(
             """
-            Points show what will be included in the final model. Continue capturing to include a larger area or process now.
+            Points show what will be included in the final model. Continue capturing to include a larger Scene or process now.
             (Review, Object Capture)
             """,
             bundle: Bundle.main,
-            value: "Points show what will be included in the final model. Continue capturing to include a larger area or process now.",
-            comment: "Feedback for when person is in Area Mode."
+            value: "Points show what will be included in the final model. Continue capturing to include a larger Scene or process now.",
+            comment: "Feedback for when person is in Scene Mode."
         )
 
         static let estimatedProcessingTime = NSLocalizedString(

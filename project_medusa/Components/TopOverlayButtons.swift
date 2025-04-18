@@ -145,7 +145,7 @@ private struct CaptureModeGuidanceView: View {
             .bold()
             .padding(.all, 6)
             .foregroundColor(.white)
-            .background(.blue)
+            .background(.black.opacity(0.7))
             .cornerRadius(5)
     }
 
@@ -153,17 +153,17 @@ private struct CaptureModeGuidanceView: View {
         switch appModel.captureMode {
             case .object:
                 return LocalizedString.objectMode
-            case .area:
-                return LocalizedString.areaMode
+            case .scene:
+            return LocalizedString.sceneMode
         }
     }
 
     private struct LocalizedString {
-        static let areaMode = NSLocalizedString(
-            "Area mode (Object Capture)",
+        static let sceneMode = NSLocalizedString(
+            "Scene mode (Object Capture)",
             bundle: Bundle.main,
-            value: "AREA MODE",
-            comment: "Title for the Area Mode guidance text.")
+            value: "Scene MODE",
+            comment: "Title for the Scene Mode guidance text.")
 
         static let objectMode = NSLocalizedString(
             "Object mode (Object Capture)",

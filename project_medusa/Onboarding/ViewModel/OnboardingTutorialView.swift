@@ -49,7 +49,7 @@ struct OnboardingTutorialView: View {
                         }
                     }
                     .frame(width: frameSize, height: frameSize)
-                case .area:
+                case .scene:
                     Spacer().frame(height: 50)
                     ObjectCapturePointCloudView(session: session)
                         .showShotLocations(showShotLocations)
@@ -73,7 +73,7 @@ struct OnboardingTutorialView: View {
 
                 Spacer()
 
-                if appModel.captureMode == .area {
+                if appModel.captureMode == .scene {
                     Text(LocalizedString.estimatedProcessingTime)
                         .font(.caption2)
                         .foregroundColor(.secondary)

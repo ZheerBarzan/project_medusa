@@ -74,7 +74,7 @@ class AppDataModel: Identifiable {
 
     enum CaptureMode: Equatable {
         case object
-        case area
+        case scene
     }
 
     var captureMode: CaptureMode = .object
@@ -234,7 +234,7 @@ extension AppDataModel {
         logger.debug("startReconstruction() called.")
 
         var configuration = PhotogrammetrySession.Configuration()
-        if captureMode == .area {
+        if captureMode == .scene {
             configuration.isObjectMaskingEnabled = false
         }
 
@@ -371,7 +371,7 @@ extension AppDataModel {
                         }
                 }
                 return currentState
-            case .area:
+            case .scene:
                 return .captureInAreaMode
         }
     }

@@ -13,22 +13,18 @@ struct GallaryGrid: View {
     var body: some View {
         
         if let captureFolderURLs{
-            
-            
             ScrollView{
                 VStack{
-                    
-                    
-                        ForEach(captureFolderURLs, id: \.self){ url in
-                            let frameWidth = UIDevice.current.userInterfaceIdiom == .pad ? 100 : 115
-                            NavigationLink(destination: ModelView(modelFile: url, endCaptureCallback: {[weak appModel] in
-                                appModel?.endCapture()
-                                
-                            }).onAppear(perform: {
-                                UIApplication.shared.isIdleTimerDisabled = false
-                            })){
-                                ThumbnailView(captureFolderURL: url, frameSize: CGSize(width: frameWidth, height: frameWidth + 70))
-                            }
+                    ForEach(captureFolderURLs, id: \.self){ url in
+                        let frameWidth = UIDevice.current.userInterfaceIdiom == .pad ? 100 : 115
+                        NavigationLink(destination: ModelView(modelFile: url, endCaptureCallback: {[weak appModel] in
+                            appModel?.endCapture()
+                            
+                        }).onAppear(perform: {
+                            UIApplication.shared.isIdleTimerDisabled = false
+                        })){
+                            ThumbnailView(captureFolderURL: url, frameSize: CGSize(width: frameWidth, height: frameWidth + 70))
+                        }
                     }
                 }
             }
@@ -42,18 +38,17 @@ struct GallaryGrid: View {
         
     }
     private var captureFolderURLs: [URL]?{
-                    guard let topLevelFolder = appModel.captureFolderManager?.appDocumentsFolder else {
-                        return nil}
-                    
-                    let folderURLs = try? FileManager.default.contentsOfDirectory(
-                        at: topLevelFolder,
-                        includingPropertiesForKeys: nil, options: [])
-                        .filter { $0.hasDirectoryPath }
-                        .sorted(by: { $0.path > $1.path })
-                    
-                    guard let folderURLs else { return nil }
-                    
-                    return folderURLs
-                }
-                
+        guard let topLevelFolder = appModel.captureFolderManager?.appDocumentsFolder else {
+            return nil}
+        
+        let folderURLs = try? FileManager.default.contentsOfDirectory(
+            at: topLevelFolder,
+            includingPropertiesForKeys: nil, options: [])
+            .filter { $0.hasDirectoryPath }
+            .sorted(by: { $0.path > $1.path })
+        
+        guard let folderURLs else { return nil }
+        
+        return folderURLs
+    }
 }

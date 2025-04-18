@@ -87,7 +87,7 @@ struct CaptureOverlayView: View {
         let interfaceIdiom = UIDevice.current.userInterfaceIdiom
         var videoName: String? = nil
         switch appModel.captureMode {
-        case .area:
+        case .scene:
             videoName = interfaceIdiom == .pad ? "ScanTutorial-iPad-Area" : "ScanTutorial-iPhone-Area"
         case .object:
             videoName = interfaceIdiom == .pad ? "ScanPasses-iPad-FixedHeight-1" : "ScanPasses-iPhone-FixedHeight-1"
@@ -216,12 +216,12 @@ private struct BoundingBoxGuidanceView: View {
                             value: "Move close and center the dot on your object, then tap Continue.",
                             comment: "Feedback message to fill the camera feed with the object.")
                     }
-                case .area:
+                case .scene:
                     return NSLocalizedString(
                         "Look at your subject (Object Capture, State).",
                         bundle: Bundle.main,
                         value: "Look at your subject.",
-                        comment: "Feedback message to look at the subject in the area mode.")
+                        comment: "Feedback message to look at the subject in the Scene mode.")
                 }
         } else if case .detecting = session.state {
             return NSLocalizedString(

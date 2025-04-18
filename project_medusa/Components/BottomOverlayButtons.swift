@@ -87,7 +87,7 @@ private struct CaptureButton: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 25)
                     .padding(.vertical, 20)
-                    .background(.blue)
+                    .background(.black.opacity(0.6))
                     .clipShape(Capsule())
             })
     }
@@ -97,7 +97,7 @@ private struct CaptureButton: View {
             switch appModel.captureMode {
                 case .object:
                     return LocalizedString.continue
-                case .area:
+                case .scene:
                     return LocalizedString.startCapture
             }
         } else {
@@ -114,7 +114,7 @@ private struct CaptureButton: View {
             switch appModel.captureMode {
             case .object:
                 hasDetectionFailed = !(session.startDetecting())
-            case .area:
+            case .scene:
                 session.startCapturing()
             }
         } else if case .detecting = session.state {
@@ -267,10 +267,10 @@ private struct CaptureModeButton: View {
             switch appModel.captureMode {
                 case .object:
                     DispatchQueue.main.async {
-                        logger.log("Area mode selected!")
-                        appModel.captureMode = .area
+                        logger.log("Scene mode selected!")
+                        appModel.captureMode = .scene
                     }
-                case .area:
+                case .scene:
                     DispatchQueue.main.async {
                         logger.log("Object mode selected!")
                         appModel.captureMode = .object
@@ -294,7 +294,7 @@ private struct CaptureModeButton: View {
         }, label: {
             VStack {
                 switch appModel.captureMode {
-                    case .area:
+                    case .scene:
                         Image(systemName: "circle.dashed")
                             .resizable()
                     case .object:

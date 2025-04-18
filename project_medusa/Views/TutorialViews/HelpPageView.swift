@@ -64,7 +64,7 @@ private struct CaptureTypesHelpPageView: View {
                                             body: objectMode,
                                             symbol: nil, symbolColor: nil),
                                     Section(title: LocalizedString.areaModeTitle,
-                                            body: areaMode,
+                                            body: sceneMode,
                                             symbol: nil, symbolColor: nil)])
     }
 
@@ -76,7 +76,7 @@ private struct CaptureTypesHelpPageView: View {
         return objectMode
     }
 
-    private var areaMode: [String] {
+    private var sceneMode: [String] {
         var areaMode = LocalizedString.areaMode
         if UIDevice.current.userInterfaceIdiom == .pad {
             areaMode.append("")
@@ -122,10 +122,10 @@ private struct CaptureTypesHelpPageView: View {
         ]
 
         static let areaModeTitle = NSLocalizedString(
-            "Area Mode (Help, Object Capture)",
+            "Scene Mode (Help, Object Capture)",
             bundle: Bundle.main,
-            value: "Area Mode",
-            comment: "Title for the Area Mode on the Capture Types page in the object Capture Help screen."
+            value: "Scene Mode",
+            comment: "Title for the Scene Mode on the Capture Types page in the object Capture Help screen."
         )
 
         static let areaMode = [
@@ -133,13 +133,13 @@ private struct CaptureTypesHelpPageView: View {
                 "Capture objects and their surroundings. (Help, Object Capture)",
                 bundle: Bundle.main,
                 value: "Capture objects and their surroundings.",
-                comment: "Area Mode tips for the Capture Types page in the object Capture Help screen."
+                comment: "Scene Mode tips for the Capture Types page in the object Capture Help screen."
             ),
             NSLocalizedString(
                 "Works in indoor or outdoor environments (Help, Object Capture)",
                 bundle: Bundle.main,
                 value: "Works in indoor or outdoor environments.",
-                comment: "Area Mode tips for the Capture Types page in the object Capture Help screen."
+                comment: "Scene Mode tips for the Capture Types page in the object Capture Help screen."
             )
         ]
     }
