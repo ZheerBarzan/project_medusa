@@ -88,20 +88,29 @@ class ModelManager{
         
     }
     // Rename a model (folder)
+    // In ModelManager.swift
     func renameModel(at url: URL, to newName: String) async -> Bool {
         let fileManager = FileManager.default
-        guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            return false
-        }
         
+        // Get the parent directory
         let parentFolder = url.deletingLastPathComponent()
         
+        // Create a new folder path with the new name
         let newFolderURL = parentFolder.appendingPathComponent(newName)
         
         do {
+            // First check if destination already exists
+            if fileManager.fileExists(atPath: newFolderURL.path) {
+                // Can't rename to existing folder name
+                return false
+            }
+            
+            // Move the folder (rename)
             try fileManager.moveItem(at: url, to: newFolderURL)
+            
+            print("Successfully renamed folder from \(url.lastPathComponent) to \(newName)")
             return true
-        } catch{
+        } catch {
             print("Error renaming model: \(error)")
             return false
         }

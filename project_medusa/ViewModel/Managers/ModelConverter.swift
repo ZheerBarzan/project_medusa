@@ -57,21 +57,19 @@ class ModelConverter{
     }
     
     // Export to OBJ format
-        private static func exportAsObj(scene: SCNScene, to outputURL: URL) async throws -> URL {
-            // Write to OBJ format
-            if SCNScene.canExport(to: "obj") {
-                let options: [SCNSceneExportOption: Any] = [:]
-                let success = scene.write(to: outputURL, options: options, delegate: nil, progressHandler: nil)
-                
-                if success {
-                    return outputURL
-                } else {
-                    throw ConversionError.failedToExport
-                }
-            } else {
-                throw ConversionError.unsupportedFormat
-            }
+    private static func exportAsObj(scene: SCNScene, to outputURL: URL) async throws -> URL {
+        // Write to OBJ format using SceneKit's write method
+        let options: [String: Any] = [:]
+        
+        // SceneKit's write method returns a Boolean indicating success
+        let success = scene.write(to: outputURL, options: options, delegate: nil, progressHandler: nil)
+        
+        if success {
+            return outputURL
+        } else {
+            throw ConversionError.failedToExport
         }
+    }
 
     // Helper method to copy a model to Documents directory with a new name
         static func saveModelCopy(from sourceURL: URL, withName name: String) throws -> URL {
