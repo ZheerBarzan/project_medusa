@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// A utility class to manage 3D model files
 class ModelManager{
     
     static let sharedModel = ModelManager()
@@ -15,7 +16,7 @@ class ModelManager{
     private init(){
         
     }
-    
+    // Get all models from the app document directory
     func getAllModels() async -> [ModelObjectItem]{
         
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else{
@@ -29,15 +30,102 @@ class ModelManager{
                 options: []
             ).filter{ $0.hasDirectoryPath}
                 .sorted(by: {
+                    // Sort by creation date, newest first
                     let date1 = try? $0.resourceValues(forKeys: [.creationDateKey]).creationDate ?? Date()
                     let date2 = try? $1.resourceValues(forKeys: [.creationDateKey]).creationDate ?? Date()
                     
                     return date1 ?? Date() > date2 ?? Date()
-
+                    
                 })
+            // Create models array
+            var models: [ModelObjectItem] = []
             
-            
+            for folderURL in folderURLs {
+                // Look for model file in the Models subfolder
+                let modelFolder = folderURL.appendingPathComponent("Models")
+                
+                if FileManager.default.fileExists(atPath: modelFolder.path) {
+                    let modelFiles = try? FileManager.default.contentsOfDirectory(
+                        at: modelFolder,
+                        includingPropertiesForKeys: nil,
+                        options: []
+                        
+                    ).filter{ $0.pathExtension.lowercased() == "usdz" }
+                    
+                    if let modelFile = modelFiles?.first{
+                        // Try to get creation date
+                        let attributes = try? FileManager.default.attributesOfItem(atPath: folderURL.path)
+                        let creationDate = attributes?[.creationDate] as? Date ?? Date()
+                        
+                        // Get thumbnail from first image
+                        let imagesFolder = folderURL.appendingPathComponent(CaptureFolderManager.imagesFolderName)
+                        let firstImage = try? FileManager.default.contentsOfDirectory(
+                            at: imagesFolder,
+                            includingPropertiesForKeys: nil,
+                            options: [])
+                            .filter { !$0.hasDirectoryPath }
+                            .sorted(by: { $0.path < $1.path })
+                            .first
+                        
+                        // create model Item
+                        let newModel = ModelObjectItem(
+                            id: folderURL.lastPathComponent,
+                            name: folderURL.lastPathComponent,
+                            url: modelFile,
+                            thumbnailURL: firstImage,
+                            creationDate: creationDate
+                        )
+                        models.append(newModel)
+                        
+                    }
+                }
+            }
+            return models
+        } catch {
+            print("Error getting models: \(error)")
+            return []
         }
         
     }
+    // Rename a model (folder)
+    func renameModel(at url: URL, to newName: String) async -> Bool {
+        let fileManager = FileManager.default
+        guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return false
+        }
+        
+        let parentFolder = url.deletingLastPathComponent()
+        
+        let newFolderURL = parentFolder.appendingPathComponent(newName)
+        
+        do {
+            try fileManager.moveItem(at: url, to: newFolderURL)
+            return true
+        } catch{
+            print("Error renaming model: \(error)")
+            return false
+        }
+    }
+    
+    
+    // delete a model (folder)
+    func deleteModel(at url: URL) async -> Bool {
+        let fileManager = FileManager.default
+        
+        do{
+            try fileManager.removeItem(at: url)
+            return true
+        } catch {
+            print("Error deleting model: \(error)")
+            return false
+        }
+    }
+    
+    
+    // Export model to a different format
+    
+    
+    
+    // Create a thumbnail image
+    
 }
