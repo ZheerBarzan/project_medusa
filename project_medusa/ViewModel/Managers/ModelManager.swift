@@ -123,9 +123,36 @@ class ModelManager{
     
     
     // Export model to a different format
-    
-    
-    
+    func exportModel(at url: URL, to format: ModelConverter.ExportFormat) async -> URL? {
+        do{
+            // convert the model to the desired format
+            let exportURL = try await ModelConverter.convert(from: url, to: format)
+            return exportURL
+        } catch {
+            print("Error exporting model: \(error)")
+            return nil
+        }
+    }
     // Create a thumbnail image
-    
+    func createThumbnail(from imageURL: URL, size: CGSize = CGSize(width: 300, height: 300)) async -> UIImage? {
+        do{
+            let imageData = try Data(contentsOf: imageURL)
+            if let image = UIImage(data: imageData) {
+                let format = UIGraphicsImageRendererFormat()
+                format.scale = 1.0
+                
+                let renderer = UIGraphicsImageRenderer(size: size, format: format)
+                
+                let thumbnail = renderer.image { context in
+                    image.draw(in: CGRect(origin: .zero, size: size))
+                    
+                }
+                return thumbnail
+            }
+            return nil
+        } catch {
+            print("Error creating thumbnail: \(error)")
+            return nil
+        }
+    }
 }
