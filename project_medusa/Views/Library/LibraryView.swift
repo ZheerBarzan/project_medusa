@@ -13,6 +13,7 @@ struct LibraryView: View {
     @State private var showingExportMenu = false
     @State private var showingDeleteConfirmation = false
     @State private var modelToDelete: ModelObjectItem? = nil
+
     
     // Sample data - will be replaced with actual models from filesystem
     @State private var models: [ModelObjectItem] = []
@@ -94,13 +95,16 @@ struct LibraryView: View {
                 
                 Button("Cancel", role: .cancel) {
                     newModelName = ""
+                    selectedModel = nil
                 }
                 
                 Button("Rename") {
-                    if let selectedModel = selectedModel {
-                        renameModel(selectedModel)
+                    if let model = selectedModel, !newModelName.isEmpty {
+                        print("New name set to: \(newModelName)")
+                        renameModel(model)
+                    } else {
+                        print("Missing model or empty name")
                     }
-                    newModelName = ""
                 }
             } message: {
                 Text("Enter a new name for this model")
@@ -192,19 +196,23 @@ struct LibraryView: View {
     
     // Function to rename a model
     private func renameModel(_ model: ModelObjectItem) {
+        print("Attempting to rename to: \(newModelName)")
+        
+        if newModelName.isEmpty {
+            print("ERROR: New name is empty")
+            return
+        }
+        
         if let index = models.firstIndex(where: { $0.id == model.id }) {
-            let folderURL = model.url.deletingLastPathComponent().deletingLastPathComponent()
+            let captureFolder = model.url.deletingLastPathComponent().deletingLastPathComponent()
             
             Task {
-                let success = await ModelManager.sharedModel.renameModel(at: folderURL, to: newModelName)
+                let success = await ModelManager.sharedModel.renameModel(at: captureFolder, to: newModelName)
                 
                 if success {
                     await MainActor.run {
-                        // Update in-memory model
                         models[index].name = newModelName
                     }
-                    
-                    // Reload models to ensure everything is in sync
                     loadModels()
                 }
             }

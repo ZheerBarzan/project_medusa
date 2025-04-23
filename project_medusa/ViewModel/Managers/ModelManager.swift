@@ -88,34 +88,50 @@ class ModelManager{
         
     }
     // Rename a model (folder)
-    // In ModelManager.swift
     func renameModel(at url: URL, to newName: String) async -> Bool {
+        // Check for empty new name
+        guard !newName.isEmpty else {
+            print("Cannot rename: new name is empty")
+            return false
+        }
+        
         let fileManager = FileManager.default
         
-        // Get the parent directory
-        let parentFolder = url.deletingLastPathComponent()
+        // Get documents directory directly
+        guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return false
+        }
         
-        // Create a new folder path with the new name
-        let newFolderURL = parentFolder.appendingPathComponent(newName)
+        // Get current folder name
+        let currentFolderName = url.lastPathComponent
+        
+        // Build paths properly
+        let originalPath = documentsDirectory.appendingPathComponent(currentFolderName)
+        let newPath = documentsDirectory.appendingPathComponent(newName)
+        
+        print("Renaming from: \(originalPath.path)")
+        print("Renaming to: \(newPath.path)")
         
         do {
-            // First check if destination already exists
-            if fileManager.fileExists(atPath: newFolderURL.path) {
-                // Can't rename to existing folder name
+            // Check if source exists and destination doesn't
+            if fileManager.fileExists(atPath: originalPath.path) && !fileManager.fileExists(atPath: newPath.path) {
+                try fileManager.moveItem(at: originalPath, to: newPath)
+                print("SUCCESS: Renamed folder to \(newName)")
+                return true
+            } else {
+                if !fileManager.fileExists(atPath: originalPath.path) {
+                    print("Source path doesn't exist")
+                }
+                if fileManager.fileExists(atPath: newPath.path) {
+                    print("Destination path already exists")
+                }
                 return false
             }
-            
-            // Move the folder (rename)
-            try fileManager.moveItem(at: url, to: newFolderURL)
-            
-            print("Successfully renamed folder from \(url.lastPathComponent) to \(newName)")
-            return true
         } catch {
             print("Error renaming model: \(error)")
             return false
         }
     }
-    
     
     // delete a model (folder)
     func deleteModel(at url: URL) async -> Bool {
