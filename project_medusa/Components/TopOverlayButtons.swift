@@ -25,7 +25,7 @@ struct TopOverlayButtons: View, OverlayButtons {
                 if isCapturingStarted(state: session.state) {
                     NextButton(session: session)
                 } else {
-                    CaptureFolderButton()
+                    HelpButton()
                 }
             }
             .foregroundColor(.white)
@@ -184,6 +184,43 @@ private struct VisualEffectRoundedCorner: ViewModifier {
             .environment(\.colorScheme, .dark)
             .cornerRadius(15)
             .multilineTextAlignment(.center)
+    }
+}
+private struct HelpButton: View {
+    @Environment(AppDataModel.self) var appModel
+    @State private var showHelpPageView: Bool = false
+
+    var body: some View {
+        Button(action: {
+            logger.log("\(LocalizedString.help) button clicked!")
+            withAnimation {
+                showHelpPageView = true
+            }
+        }, label: {
+            Image(systemName: "questionmark.circle")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 22)
+                .foregroundColor(.white)
+                .padding(20)
+                .contentShape(.rect)
+        })
+        .padding(-20)
+        .sheet(isPresented: $showHelpPageView) {
+            HelpPageView(showHelpPageView: $showHelpPageView)
+                .padding()
+        }
+        .onChange(of: showHelpPageView) {
+            appModel.setShowOverlaySheets(to: showHelpPageView)
+        }
+    }
+
+    struct LocalizedString {
+        static let help = NSLocalizedString(
+            "Help (Object Capture)",
+            bundle: Bundle.main,
+            value: "Help",
+            comment: "Title for the Help button on the object capture screen to show the tutorial pages.")
     }
 }
 

@@ -24,9 +24,10 @@ struct BottomOverlayButtons: View, OverlayButtons {
         HStack(alignment: .center) {
             HStack {
                 switch session.state {
+                    
                     case .ready:
-                        HelpButton()
-                            .frame(width: 30)
+                        // nothing
+                    Spacer()
                     case .detecting:
                         ResetBoundingBoxButton(session: session)
                     default:
@@ -218,43 +219,7 @@ private struct ManualShotButton: View {
     }
 }
 
-private struct HelpButton: View {
-    @Environment(AppDataModel.self) var appModel
-    @State private var showHelpPageView: Bool = false
 
-    var body: some View {
-        Button(action: {
-            logger.log("\(LocalizedString.help) button clicked!")
-            withAnimation {
-                showHelpPageView = true
-            }
-        }, label: {
-            Image(systemName: "questionmark.circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 22)
-                .foregroundColor(.white)
-                .padding(20)
-                .contentShape(.rect)
-        })
-        .padding(-20)
-        .sheet(isPresented: $showHelpPageView) {
-            HelpPageView(showHelpPageView: $showHelpPageView)
-                .padding()
-        }
-        .onChange(of: showHelpPageView) {
-            appModel.setShowOverlaySheets(to: showHelpPageView)
-        }
-    }
-
-    struct LocalizedString {
-        static let help = NSLocalizedString(
-            "Help (Object Capture)",
-            bundle: Bundle.main,
-            value: "Help",
-            comment: "Title for the Help button on the object capture screen to show the tutorial pages.")
-    }
-}
 
 private struct CaptureModeButton: View {
     @Environment(AppDataModel.self) var appModel
