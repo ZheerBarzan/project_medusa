@@ -23,7 +23,8 @@ struct ModelCardView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(height: 200)
                         .clipped()
-                        .cornerRadius(12)
+
+                        
                 } else {
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))
@@ -57,22 +58,22 @@ struct ModelCardView: View {
             }
             
             // Model info
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 7) {
                 Text(model.name)
-                    .font(.headline)
+                    .font(.system(size: 20, weight: .medium, design: .monospaced))
                     .lineLimit(1)
                 
                 Text(model.formateDate)
-                    .font(.subheadline)
+                    .font(.system(size: 15, weight: .light, design: .monospaced))
                     .foregroundColor(.secondary)
             }
-            .padding(.horizontal, 4)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 10)
         }
         .background(Color(uiColor: .systemBackground))
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-        .padding(.vertical, 4)
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
+        
         .task {
             await loadThumbnail()
         }
@@ -104,4 +105,5 @@ struct ModelCardView: View {
         }
     }
 }
+
 

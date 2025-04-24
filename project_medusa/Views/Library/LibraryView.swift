@@ -13,7 +13,6 @@ struct LibraryView: View {
     @State private var showingExportMenu = false
     @State private var showingDeleteConfirmation = false
     @State private var modelToDelete: ModelObjectItem? = nil
-
     
     // Sample data - will be replaced with actual models from filesystem
     @State private var models: [ModelObjectItem] = []
@@ -33,39 +32,15 @@ struct LibraryView: View {
                                 .contextMenu {
                                     modelContextMenu(for: model)
                                 }
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        modelToDelete = model
-                                        showingDeleteConfirmation = true
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
-                                    
-                                    Button {
-                                        selectedModel = model
-                                        newModelName = model.name
-                                        showingRenameAlert = true
-                                    } label: {
-                                        Label("Rename", systemImage: "pencil")
-                                    }
-                                    .tint(.blue)
-                                    
-                                    Button {
-                                        selectedModel = model
-                                        showingExportMenu = true
-                                    } label: {
-                                        Label("Export", systemImage: "square.and.arrow.up")
-                                    }
-                                    .tint(.green)
-                                }
                         }
                     }
                 }
                 .padding(.horizontal)
             }
             .navigationTitle("My 3D Models")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Button(action: {
                             // Sort by date
