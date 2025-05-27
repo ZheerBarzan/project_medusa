@@ -27,7 +27,7 @@ class AppDataModel: Identifiable {
             attachListeners()
         }
     }
-
+    
     static let minNumImages = 10
 
     /// Once we are headed to reconstruction portion, we will hold the session here.
@@ -41,6 +41,8 @@ class AppDataModel: Identifiable {
 
     var messageList = TimedMessageList()
 
+    var flashManager = FlashManager.shared
+        private(set) var userWantsFlashOn: Bool = false
     enum ModelState {
         case notSet
         case ready
@@ -136,6 +138,17 @@ class AppDataModel: Identifiable {
     func saveDraft() {
         objectCaptureSession?.finish()
         isSaveDraftEnabled = true
+    }
+    func toggleFlash() {
+        userWantsFlashOn.toggle()
+        
+        if userWantsFlashOn {
+            flashManager.turnOnFlash()
+        } else {
+            flashManager.turnOffFlash()
+        }
+        
+        logger.log("User toggled flash to: \(self.userWantsFlashOn ? "ON" : "OFF")")
     }
 
     // - MARK: Private Interface
@@ -264,6 +277,8 @@ extension AppDataModel {
         state = .ready
         isSaveDraftEnabled = false
         tutorialPlayedOnce = false
+        flashManager.turnOffFlash()
+
     }
 
     private func onStateChanged(newState: ObjectCaptureSession.CaptureState) {
@@ -311,38 +326,51 @@ extension AppDataModel {
     }
 
     private func performStateTransition(from fromState: ModelState, to toState: ModelState) {
-        if fromState == toState { return }
-        if fromState == .failed { error = nil }
+            if fromState == toState { return }
+            if fromState == .failed { error = nil }
 
-        switch toState {
-            case .ready:
-                do {
-                    try startNewCapture()
-                } catch {
-                    logger.error("Starting new capture failed!")
-                }
-            case .prepareToReconstruct:
-                // Clean up the session to free GPU and memory resources.
-                objectCaptureSession = nil
-                do {
-                    try startReconstruction()
-                } catch {
-                    logger.error("Reconstructing failed!")
-                    switchToErrorState(error: error)
-                }
-            case .restart, .completed:
-                reset()
-            case .viewing:
-                photogrammetrySession = nil
+            switch toState {
+                case .ready:
+                    do {
+                        try startNewCapture()
+                    } catch {
+                        logger.error("Starting new capture failed!")
+                    }
+                case .prepareToReconstruct:
+                    // Turn off flash when processing starts
+                    flashManager.forceFlashOff()
+                    
+                    // Clean up the session to free GPU and memory resources.
+                    objectCaptureSession = nil
+                    do {
+                        try startReconstruction()
+                    } catch {
+                        logger.error("Reconstructing failed!")
+                        switchToErrorState(error: error)
+                    }
+                case .restart, .completed:
+                    // Turn off flash when restarting or completing
+                    flashManager.forceFlashOff()
+                    userWantsFlashOn = false
+                    reset()
+                case .viewing:
+                    photogrammetrySession = nil
 
-                removeCheckpointFolder()
-            case .failed:
-                logger.error("App failed state error=\(String(describing: self.error!))")
-                // We will show error screen here
-            default:
-                break
+                    removeCheckpointFolder()
+                    
+                    // Restore flash state if user had it on
+                    if userWantsFlashOn {
+                        flashManager.turnOnFlash()
+                    }
+                case .failed:
+                    logger.error("App failed state error=\(String(describing: self.error!))")
+                    // Turn off flash on error
+                    flashManager.forceFlashOff()
+                    // We will show error screen here
+                default:
+                    break
+            }
         }
-    }
 
     private func removeCheckpointFolder() {
         // Remove checkpoint folder to free up space now that the model is generated.
