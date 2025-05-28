@@ -16,16 +16,19 @@ struct TopOverlayButtons: View, OverlayButtons {
     @Environment(AppDataModel.self) var appModel
     var session: ObjectCaptureSession
     var showCaptureModeGuidance: Bool
-
+    
     var body: some View {
         VStack {
             HStack {
                 CaptureCancelButton()
                 Spacer()
+                FlashToggleButton()
+                
+                Spacer().frame(width: 20)
                 if isCapturingStarted(state: session.state) {
                     NextButton(session: session)
                 } else {
-                    HelpButton()
+                    HelpButton()// to do
                 }
             }
             .foregroundColor(.white)
@@ -39,7 +42,7 @@ struct TopOverlayButtons: View, OverlayButtons {
 
 private struct CaptureCancelButton: View {
     @Environment(AppDataModel.self) var appModel
-
+    
     var body: some View {
         Button(action: {
             logger.log("\(LocalizedString.cancel) button clicked!")
@@ -50,7 +53,7 @@ private struct CaptureCancelButton: View {
                 .modifier(VisualEffectRoundedCorner())
         })
     }
-
+    
     struct LocalizedString {
         static let cancel = NSLocalizedString(
             "Cancel (Object Capture)",
@@ -64,7 +67,7 @@ private struct NextButton: View {
     @Environment(AppDataModel.self) var appModel
     var session: ObjectCaptureSession
     @State private var showOnboardingView: Bool = false
-
+    
     var body: some View {
         Button(action: {
             logger.log("\(LocalizedString.next) button clicked!")
@@ -91,7 +94,7 @@ private struct NextButton: View {
             }
         }
     }
-
+    
     struct LocalizedString {
         static let next = NSLocalizedString(
             "Next (Object Capture)",
@@ -99,7 +102,7 @@ private struct NextButton: View {
             value: "Next",
             comment: "Title for the Next button on the object capture screen."
         )
-
+        
         static let done = NSLocalizedString(
             "Done (Object Capture)",
             bundle: Bundle.main,
@@ -112,7 +115,7 @@ private struct NextButton: View {
 private struct CaptureFolderButton: View {
     @Environment(AppDataModel.self) var appModel
     @State private var showCaptureFolders: Bool = false
-
+    
     var body: some View {
         Button(action: {
             logger.log("Capture folder button clicked!")
@@ -138,7 +141,7 @@ private struct CaptureFolderButton: View {
 
 private struct CaptureModeGuidanceView: View {
     @Environment(AppDataModel.self) var appModel
-
+    
     var body: some View {
         Text(guidanceText)
             .font(.subheadline)
@@ -148,23 +151,23 @@ private struct CaptureModeGuidanceView: View {
             .background(.black.opacity(0.7))
             .cornerRadius(5)
     }
-
+    
     private var guidanceText: String {
         switch appModel.captureMode {
-            case .object:
-                return LocalizedString.objectMode
-            case .scene:
+        case .object:
+            return LocalizedString.objectMode
+        case .scene:
             return LocalizedString.sceneMode
         }
     }
-
+    
     private struct LocalizedString {
         static let sceneMode = NSLocalizedString(
             "Scene mode (Object Capture)",
             bundle: Bundle.main,
             value: "Scene MODE",
             comment: "Title for the Scene Mode guidance text.")
-
+        
         static let objectMode = NSLocalizedString(
             "Object mode (Object Capture)",
             bundle: Bundle.main,
@@ -189,7 +192,7 @@ private struct VisualEffectRoundedCorner: ViewModifier {
 private struct HelpButton: View {
     @Environment(AppDataModel.self) var appModel
     @State private var showHelpPageView: Bool = false
-
+    
     var body: some View {
         Button(action: {
             logger.log("\(LocalizedString.help) button clicked!")
@@ -214,7 +217,7 @@ private struct HelpButton: View {
             appModel.setShowOverlaySheets(to: showHelpPageView)
         }
     }
-
+    
     struct LocalizedString {
         static let help = NSLocalizedString(
             "Help (Object Capture)",
@@ -224,10 +227,10 @@ private struct HelpButton: View {
     }
 }
 
- struct GalleryView: View {
+struct GalleryView: View {
     @Environment(AppDataModel.self) var appModel
     @Binding var showCaptureFolders: Bool
-
+    
     var body: some View {
         if let captureFolderURLs {
             ScrollView {
@@ -256,7 +259,7 @@ private struct HelpButton: View {
             }.padding()
         }
     }
-
+    
     private var captureFolderURLs: [URL]? {
         guard let topLevelFolder = appModel.captureFolderManager?.appDocumentsFolder else { return nil }
         let folderURLs = try? FileManager.default.contentsOfDirectory(
@@ -268,14 +271,14 @@ private struct HelpButton: View {
         guard let folderURLs else { return nil }
         return folderURLs
     }
-
+    
     struct LocalizedString {
         static let cancel = NSLocalizedString(
             "Cancel (Object Capture)",
             bundle: Bundle.main,
             value: "Cancel",
             comment: "Title for the Cancel button on the folder view.")
-
+        
         static let captures = NSLocalizedString(
             "Captures (Object Capture)",
             bundle: Bundle.main,
@@ -284,11 +287,11 @@ private struct HelpButton: View {
     }
 }
 
- struct ThumbnailView: View {
+struct ThumbnailView: View {
     let captureFolderURL: URL
     let frameSize: CGSize
     @State private var image: CGImage?
-
+    
     var body: some View {
         if let imageURL = getFirstImage(from: captureFolderURL) {
             ShareLink(item: captureFolderURL) {
@@ -305,7 +308,7 @@ private struct HelpButton: View {
                     .frame(width: frameSize.width, height: frameSize.width)
                     .clipped()
                     .cornerRadius(6)
-
+                    
                     let folderName = captureFolderURL.lastPathComponent
                     Text("\(folderName)")
                         .foregroundColor(.primary)
@@ -319,7 +322,7 @@ private struct HelpButton: View {
             }
         }
     }
-
+    
     private nonisolated func createThumbnail(url: URL) async -> CGImage? {
         let options = [
             kCGImageSourceThumbnailMaxPixelSize: frameSize.width * 2,
@@ -331,7 +334,7 @@ private struct HelpButton: View {
         }
         return thumbnail
     }
-
+    
     private func getFirstImage(from url: URL) -> URL? {
         let imageFolderURL = url.appendingPathComponent(CaptureFolderManager.imagesFolderName)
         let imagesURL: URL? = try? FileManager.default.contentsOfDirectory(
