@@ -30,7 +30,7 @@ struct FlashToggleButton: View {
                 Image(systemName: flashIconName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 22)
+                    .frame(width: 30 , height: 30)
                     .foregroundColor(.white)
                 
                 if UIDevice.current.userInterfaceIdiom == .pad {
@@ -50,10 +50,10 @@ struct FlashToggleButton: View {
     
     private var flashIconName: String {
         if !appModel.flashManager.isFlashAvailable {
-            return "flashlight.slash"
+            return "flashlight.slash.circle.fill"
         }
         
-        return appModel.flashManager.isFlashOn ? "flashlight.on.fill" : "flashlight.off.fill"
+        return appModel.flashManager.isFlashOn ? "flashlight.on.circle" : "flashlight.slash.circle"
     }
     
     private var flashStatusText: String {

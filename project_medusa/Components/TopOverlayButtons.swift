@@ -24,7 +24,7 @@ struct TopOverlayButtons: View, OverlayButtons {
                 Spacer()
                 FlashToggleButton()
                 
-                Spacer().frame(width: 20)
+                Spacer()
                 if isCapturingStarted(state: session.state) {
                     NextButton(session: session)
                 } else {
