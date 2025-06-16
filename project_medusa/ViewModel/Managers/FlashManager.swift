@@ -59,7 +59,7 @@ class FlashManager {
                 if device.torchMode == .off {
                     try device.setTorchModeOn(level: 1.0)
                     isFlashOn = true
-                    logger.log("Flash turned ON")
+                    logger.log("Flash is turned ON")
                 }
                 
                 device.unlockForConfiguration()
